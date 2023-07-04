@@ -1,0 +1,15 @@
+:8000
+
+handle /api* {
+	reverse_proxy {
+		to localhost:8881 localhost:8882 localhost:8883
+
+		lb_policy round_robin
+		lb_retries 2
+
+		health_uri /
+		health_interval 5s
+		health_timeout 2s
+		health_status 2xx
+	}
+}
